@@ -37,7 +37,6 @@ const IntroPage: React.FC<IntroPageProps> = ({ navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
