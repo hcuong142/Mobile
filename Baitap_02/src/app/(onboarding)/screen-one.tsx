@@ -1,9 +1,9 @@
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import OnBoardingLayout from "~/components/layouts/OnBoardingLayout";
+import Button from "~/components/Button";
 import { router } from "expo-router";
-import Button from "../../components/Button";
-import OnBoardingLayout from "../../components/layouts/OnBoardingLayout";
 
 const ScreenOne = () => {
   return (

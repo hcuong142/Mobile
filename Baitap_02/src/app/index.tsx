@@ -1,10 +1,11 @@
 import "expo-router/entry";
 
+import Button from "@components/Button";
+
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, router } from "expo-router";
 import { useEffect } from "react";
-import Button from "../components/Button";
 
 const App = () => {
   // useEffect(() => {

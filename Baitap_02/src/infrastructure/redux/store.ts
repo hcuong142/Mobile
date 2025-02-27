@@ -15,9 +15,9 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import { authApi } from "./apis/auth.api";
-import { postsApi } from "./apis/post.api";
-import authSlice from "../../infrastructure/redux/slices/auth/auth.slice";
+import authSlice from "~/infrastructure/redux/slices/auth/auth.slice";
+import { authApi } from "~/infrastructure/redux/apis/auth.api";
+import { postsApi } from "~/infrastructure/redux/apis/post.api";
 
 const persistConfig: PersistConfig<ReturnType<typeof reducers>> = {
   key: "root",

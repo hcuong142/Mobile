@@ -6,7 +6,7 @@ import { Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { persistStore } from "redux-persist";
-import rtkStore from "../infrastructure/redux/store";
+import rtkStore from "~/infrastructure/redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import * as SplashScreen from "expo-splash-screen";
