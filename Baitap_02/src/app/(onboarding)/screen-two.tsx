@@ -17,7 +17,7 @@ const ScreenTwo = () => {
             <Button
               label="Next"
               onPress={() => {
-                router.push("/sign-in");
+                router.push("/sign-up");
               }}
             />
           </View>
