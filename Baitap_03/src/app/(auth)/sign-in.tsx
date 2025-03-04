@@ -27,7 +27,7 @@ const SignIn = () => {
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post("http://172.172.22.220:3000/api/auth/login", data, {
+      const response = await axios.post("http://10.5.50.163:3000/api/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
         },

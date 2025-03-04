@@ -12,6 +12,8 @@ import AuthLayout from "~/components/layouts/AuthLayout";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { router } from "expo-router";
+import axios from "axios";
 
 const SignInScreen = () => {
   const loginSchema = z.object({
@@ -25,6 +27,8 @@ const SignInScreen = () => {
 
   type LoginFormType = z.infer<typeof loginSchema>;
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const {
     control,
     handleSubmit,
@@ -38,20 +42,30 @@ const SignInScreen = () => {
     },
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit: SubmitHandler<LoginFormType> = async (
-    data: LoginFormType
-  ) => {
+  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      alert("Login success");
-      console.log(data);
-      reset(); // Clear form after successful submission
+      const response = await axios.post("http://172.172.22.220:3000/api/auth/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        alert("Đăng nhập thành công!");
+        console.log(response.data);
+        router.push({
+          pathname: "/profile",
+          params: {
+            email: data.email, 
+          },
+        });
+      } else {
+        alert("Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.");
+      }
     } catch (error) {
-      alert("Login failed");
+      console.error("Lỗi đăng nhập:", error);
+      alert("Lỗi khi đăng nhập. Vui lòng thử lại sau.");
     } finally {
       setIsSubmitting(false);
     }
