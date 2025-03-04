@@ -2,8 +2,8 @@ import "expo-router/entry";
 
 import Button from "@components/Button";
 
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, View, Text, TouchableOpacity } from "react-native";//scrollview cuộn trang
+import { SafeAreaView } from "react-native-safe-area-context"; //đảm bảo nội dung kh bị che mất
 import { Link, router } from "expo-router";
 import { useEffect } from "react";
 

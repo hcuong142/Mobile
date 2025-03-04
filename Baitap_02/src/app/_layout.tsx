@@ -5,21 +5,22 @@ import { useFonts } from "expo-font";
 import { Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { persistStore } from "redux-persist";
-import rtkStore from "~/infrastructure/redux/store";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import * as SplashScreen from "expo-splash-screen";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+import { persistStore } from "redux-persist"; // Hỗ trợ lưu trạng thái Redux vào AsyncStorage
+import rtkStore from "~/infrastructure/redux/store"; // Store của Redux Toolkit
+import { Provider } from "react-redux"; // Cung cấp Redux Store cho toàn bộ ứng dụng
+import { PersistGate } from "redux-persist/integration/react"; // Dùng để đợi Redux Persist khởi tạo
+import * as SplashScreen from "expo-splash-screen"; // Quản lý màn hình chờ (splash screen)
+
+// Ngăn Splash Screen tự động ẩn trước khi ứng dụng tải xong
 SplashScreen.preventAutoHideAsync();
 
 // Set the animation options. This is optional.
 SplashScreen.setOptions({
-  duration: 2000,
-  fade: true,
+  duration: 2000, // Ẩn Splash Screen sau 2 giây
+  fade: true, // Dùng hiệu ứng mờ dần
 });
-
+// lưu trạng thái Redux
 const persistor = persistStore(rtkStore);
 
 const RootLayout = () => {
@@ -65,7 +66,7 @@ const RootLayout = () => {
         <SafeAreaProvider>
           <Stack
             screenOptions={{
-              headerShown: false,
+              headerShown: false, // Ẩn header cho tất cả các màn hình
             }}
           ></Stack>
         </SafeAreaProvider>

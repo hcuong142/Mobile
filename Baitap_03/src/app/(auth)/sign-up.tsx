@@ -8,7 +8,7 @@ const SignUp = () => {
     <SafeAreaView>
       <AuthLayout>
         <View>
-          <Text>SignUadasdp</Text>
+          <Text>SignUp</Text>
         </View>
       </AuthLayout>
     </SafeAreaView>

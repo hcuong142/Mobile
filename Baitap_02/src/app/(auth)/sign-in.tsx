@@ -66,7 +66,7 @@ const SignInScreen = () => {
           </Text>
 
           <View className="p-2 rounded-lg w-96">
-            <Controller
+            <Controller //giống Form
               name="email"
               control={control}
               render={({
