@@ -12,10 +12,18 @@ import AuthLayout from "~/components/layouts/AuthLayout";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { router } from "expo-router";
-import axios from "axios";
+
+// Định nghĩa kiểu dữ liệu cho navigation
+type RootStackParamList = {
+  SignUp: undefined;
+};
 
 const SignInScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const loginSchema = z.object({
     email: z.string().email({
       message: "Please enter a valid email",
@@ -27,8 +35,6 @@ const SignInScreen = () => {
 
   type LoginFormType = z.infer<typeof loginSchema>;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
   const {
     control,
     handleSubmit,
@@ -42,30 +48,19 @@ const SignInScreen = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
-    setIsSubmitting(true);
-    try {
-      const response = await axios.post("http://172.172.22.220:3000/api/auth/login", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-      if (response.status === 200) {
-        alert("Đăng nhập thành công!");
-        console.log(response.data);
-        router.push({
-          pathname: "/profile",
-          params: {
-            email: data.email, 
-          },
-        });
-      } else {
-        alert("Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.");
-      }
+  const onSubmit: SubmitHandler<LoginFormType> = async (data: LoginFormType) => {
+    try {
+      setIsSubmitting(true);
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert("Login success");
+      router.push(`/home?email=${encodeURIComponent(data.email)}`);
+      console.log(data);
+      reset(); // Clear form after successful submission
     } catch (error) {
-      console.error("Lỗi đăng nhập:", error);
-      alert("Lỗi khi đăng nhập. Vui lòng thử lại sau.");
+      alert("Login failed");
     } finally {
       setIsSubmitting(false);
     }
@@ -76,24 +71,22 @@ const SignInScreen = () => {
       <AuthLayout>
         <View className="flex items-center justify-center h-screen">
           <Text className="text-white font-Poppins-Bold text-2xl mb-4">
-            Login screen
+            Login Screen
           </Text>
 
+          {/* Input Email */}
           <View className="p-2 rounded-lg w-96">
-            <Controller //giống Form
+            <Controller
               name="email"
               control={control}
-              render={({
-                field: { onBlur, onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field: { onBlur, onChange, value } }) => (
                 <View>
                   <Text className="text-black font-TenorSans-Regular text-lg mb-4">
                     Email
                   </Text>
                   <TextInput
                     value={value}
-                    onChangeText={onChange} // Changed from onChange
+                    onChangeText={onChange}
                     onBlur={onBlur}
                     className="bg-white px-3 py-2 text-lg rounded-md"
                     autoCapitalize="none"
@@ -109,21 +102,19 @@ const SignInScreen = () => {
             />
           </View>
 
+          {/* Input Password */}
           <View className="p-2 rounded-lg w-96">
             <Controller
               name="password"
               control={control}
-              render={({
-                field: { onBlur, onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field: { onBlur, onChange, value } }) => (
                 <View>
                   <Text className="text-black font-TenorSans-Regular text-lg mb-4">
                     Password
                   </Text>
                   <TextInput
                     value={value}
-                    onChangeText={onChange} // Changed from onChange
+                    onChangeText={onChange}
                     onBlur={onBlur}
                     className="bg-white px-3 py-2 text-lg rounded-md"
                     secureTextEntry
@@ -138,17 +129,25 @@ const SignInScreen = () => {
             />
           </View>
 
+          {/* Nút Submit */}
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
-            className={`bg-primary p-2 rounded-lg w-96 mt-4 ${
-              isSubmitting ? "opacity-50" : ""
-            }`}
+            className={`bg-primary p-2 rounded-lg w-96 mt-4 ${isSubmitting ? "opacity-50" : ""
+              }`}
             disabled={isSubmitting}
           >
             <Text className="text-center text-white font-bold">
               {isSubmitting ? "Submitting..." : "Submit"}
             </Text>
           </TouchableOpacity>
+
+          {/* Nút Đăng Ký */}
+          <TouchableOpacity
+            onPress={() => router.push("/sign-up")} // ✅ Sửa lỗi điều hướng
+            className="bg-secondary p-2 rounded-lg w-96 mt-2"
+          >
+            <Text className="text-center text-white font-bold">Sign Up</Text>
+          </TouchableOpacity>;
         </View>
       </AuthLayout>
     </SafeAreaView>

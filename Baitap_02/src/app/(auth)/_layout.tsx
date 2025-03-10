@@ -1,28 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
+import { TouchableOpacity, Text, View } from "react-native";
 
 const AuthLayout = () => {
   return (
-    <>
-      <Stack>
-        <Stack.Screen
-          name="sign-in"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="sign-up"
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
-    </>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="sign-in" options={{ title: "Sign In" }} />
+      <Stack.Screen name="sign-up" options={{ title: "Sign Up" }} />
+      <Stack.Screen name="otp-screen" options={{ title: "OTP Verification" }} />
+      <Stack.Screen name="home" options={{ title: "Home" }} />
+    </Stack>
   );
 };
 
 export default AuthLayout;
-
-const styles = StyleSheet.create({});
