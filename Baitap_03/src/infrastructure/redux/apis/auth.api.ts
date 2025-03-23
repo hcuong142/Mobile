@@ -9,7 +9,7 @@ export const authApi = createApi({
   reducerPath: "auth-api",
   tagTypes: ["auth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://172.172.22.220:3000/api/",
+    baseUrl: "http://172.172.12.96:3000/api/",
   }),
   endpoints: (builder) => ({
     loginAsync: builder.mutation({

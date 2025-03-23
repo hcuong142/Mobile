@@ -60,7 +60,7 @@ const ProfileScreen = () => {
       setError(null);
       try {
         const response = await axios.get(
-          `http://10.5.50.163:3000/api/users/profiles/${email}`,
+          `http://172.172.12.96:3000/api/users/profiles/${email}`,
           {
             headers: {
               "Accept": "application/json",
@@ -192,7 +192,7 @@ const ProfileScreen = () => {
       
       // Send PUT request to update profile
       const response = await axios.put(
-        `http://10.5.50.163:3000/api/users/profiles/${data.email}`,
+        `http://172.172.12.96:3000/api/users/profiles/${data.email}`,
         formData,
         {
           headers: {
